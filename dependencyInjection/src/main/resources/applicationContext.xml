@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="answerEightService" class="com.dependencyInjection.dependencyInjection.answers.AnswerEightService" />
+    <bean id="answerNineService" class="com.dependencyInjection.dependencyInjection.answers.AnswerNineService" />
+
+    <bean id="magicEightBall" class="com.dependencyInjection.dependencyInjection.magicBalls.MagicEightBall">
+        <constructor-arg ref="answerEightService"/>
+    </bean>
+
+    <bean id="magicNineBall" class="com.dependencyInjection.dependencyInjection.magicBalls.MagicNineBall">
+        <property name="answerService" ref="answerNineService" />
+    </bean>
+
+    <bean id="allMagicBalls" class="com.dependencyInjection.dependencyInjection.AllMagicBalls">
+        <property name="magicBallList">
+            <list>
+                <ref bean="magicEightBall"/>
+                <ref bean="magicNineBall"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
